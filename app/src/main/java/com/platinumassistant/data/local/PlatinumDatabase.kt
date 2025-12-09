@@ -3,6 +3,12 @@ package com.platinumassistant.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.platinumassistant.data.local.dao.MessageDao
+import com.platinumassistant.data.local.dao.TaskDao
+import com.platinumassistant.data.local.dao.PersonalityDao
+import com.platinumassistant.data.local.entity.MessageEntity
+import com.platinumassistant.data.local.entity.TaskEntity
+import com.platinumassistant.data.local.entity.PersonalityEntity
 
 /**
  * Room database for Platinum Assistant
@@ -19,26 +25,21 @@ import androidx.room.TypeConverters
  */
 @Database(
     entities = [
-        // TODO: Add Room entities (tables)
-        // MessageEntity::class,
-        // TaskEntity::class,
-        // PersonalityEntity::class,
-        // PreferenceEntity::class,
+        MessageEntity::class,
+        TaskEntity::class,
+        PersonalityEntity::class,
     ],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(
-    // TODO: Add TypeConverters for complex types
-    // DateConverters::class,
-    // ListConverters::class,
+    // TypeConverters can be added here for complex types like Date, List, etc.
 )
 abstract class PlatinumDatabase : RoomDatabase() {
     
-    // TODO: Add DAO (Data Access Object) abstract functions
-    // abstract fun messageDao(): MessageDao
-    // abstract fun taskDao(): TaskDao
-    // abstract fun personalityDao(): PersonalityDao
+    abstract fun messageDao(): MessageDao
+    abstract fun taskDao(): TaskDao
+    abstract fun personalityDao(): PersonalityDao
     
     /**
      * Database migration strategy:

@@ -7,6 +7,12 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import com.platinumassistant.core.security.EncryptionManager
 import com.platinumassistant.data.local.PlatinumDatabase
+import com.platinumassistant.data.repositories.MessageRepositoryImpl
+import com.platinumassistant.data.repositories.PersonalityRepositoryImpl
+import com.platinumassistant.data.repositories.TaskRepositoryImpl
+import com.platinumassistant.domain.repositories.MessageRepository
+import com.platinumassistant.domain.repositories.PersonalityRepository
+import com.platinumassistant.domain.repositories.TaskRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,5 +59,31 @@ object DIModule {
         @ApplicationContext context: Context
     ): EncryptionManager {
         return EncryptionManager(context)
+    }
+
+    // Repository Providers
+
+    @Provides
+    @Singleton
+    fun provideMessageRepository(
+        database: PlatinumDatabase
+    ): MessageRepository {
+        return MessageRepositoryImpl(database.messageDao())
+    }
+
+    @Provides
+    @Singleton
+    fun providePersonalityRepository(
+        database: PlatinumDatabase
+    ): PersonalityRepository {
+        return PersonalityRepositoryImpl(database.personalityDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideTaskRepository(
+        database: PlatinumDatabase
+    ): TaskRepository {
+        return TaskRepositoryImpl(database.taskDao())
     }
 }
