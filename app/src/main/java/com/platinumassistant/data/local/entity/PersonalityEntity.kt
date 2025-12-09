@@ -34,8 +34,7 @@ data class PersonalityEntity(
     val updatedAt: Long = System.currentTimeMillis(),
     val tags: String = "", // Comma-separated tags
     val traits: String = "", // JSON string of personality traits
-    val availability: String = "always", // when personality is available
-    val costPerMessage: Float = 0f, // For future premium features
+    val availability: String = "always", // Always available - completely FREE
     val metadata: String = "" // Additional JSON metadata
 ) {
     
@@ -66,7 +65,6 @@ data class PersonalityEntity(
             tags = tags.split(",").filter { it.isNotBlank() },
             traits = traits,
             availability = availability,
-            costPerMessage = costPerMessage,
             metadata = metadata
         )
     }
@@ -99,7 +97,6 @@ data class PersonalityEntity(
                 tags = personality.tags.joinToString(","),
                 traits = personality.traits,
                 availability = personality.availability,
-                costPerMessage = personality.costPerMessage,
                 metadata = personality.metadata
             )
         }
