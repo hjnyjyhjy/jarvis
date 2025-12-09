@@ -4,7 +4,22 @@ import com.platinumassistant.domain.entities.Personality
 import com.platinumassistant.domain.entities.PersonalityCategory
 import com.platinumassistant.domain.repositories.PersonalityRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
+
+/**
+ * Container class for all personality-related use cases
+ * Simplifies injection and grouping of related use cases
+ */
+@Inject
+class PersonalityUseCases(
+    val getAllPersonalities: GetAllPersonalitiesUseCase,
+    val getByCategory: GetPersonalitiesByCategoryUseCase,
+    val getFavorites: GetFavoritePersonalitiesUseCase,
+    val selectPersonality: SelectPersonalityUseCase,
+    val toggleFavorite: ToggleFavoritePersonalityUseCase,
+    val getTrendingPersonalities: GetTrendingPersonalitiesUseCase
+)
 
 /**
  * Use case for retrieving all personalities with optional filtering
@@ -24,7 +39,7 @@ class GetPersonalitiesByCategoryUseCase @Inject constructor(
     private val personalityRepository: PersonalityRepository
 ) {
     operator fun invoke(category: PersonalityCategory): Flow<List<Personality>> {
-        return personalityRepository.getPersonalitiesByCategory(category)
+        return personalityRepository.getPersonalitiesByCategory(category.name)
     }
 }
 
@@ -45,8 +60,8 @@ class GetFavoritePersonalitiesUseCase @Inject constructor(
 class SelectPersonalityUseCase @Inject constructor(
     private val personalityRepository: PersonalityRepository
 ) {
-    suspend operator fun invoke(id: String) {
-        personalityRepository.updateUsageStatistics(id)
+    operator fun invoke(id: String): Flow<Boolean> {
+        return flowOf(personalityRepository.selectPersonality(id))
     }
 }
 
@@ -56,8 +71,8 @@ class SelectPersonalityUseCase @Inject constructor(
 class ToggleFavoritePersonalityUseCase @Inject constructor(
     private val personalityRepository: PersonalityRepository
 ) {
-    suspend operator fun invoke(id: String, isFavorite: Boolean) {
-        personalityRepository.toggleFavorite(id, isFavorite)
+    operator fun invoke(id: String): Flow<Boolean> {
+        return flowOf(personalityRepository.toggleFavorite(id))
     }
 }
 
