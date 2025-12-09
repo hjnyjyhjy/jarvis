@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "fwcd.kotlin",
+    "yzhang.markdown-all-in-one",
+    "vscjava.vscode-java-pack",
+    "redhat.vscode-yaml",
+    "vadimcn.vscode-lldb",
+    "esbenp.prettier-vscode",
+    "ms-vscode.cpptools",
+    "msjsdiag.debugger-for-chrome"
+  ],
+  "unwantedRecommendations": []
+}

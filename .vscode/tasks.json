@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Gradle: Assemble Debug",
+      "type": "shell",
+      "command": "./gradlew assembleDebug",
+      "group": "build",
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "Gradle: Run Unit Tests",
+      "type": "shell",
+      "command": "./gradlew testDebugUnitTest",
+      "group": "test",
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "Gradle: Connected Android Tests",
+      "type": "shell",
+      "command": "./gradlew connectedAndroidTest",
+      "group": "test",
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "Gradle: Install Debug on Device/Emulator",
+      "type": "shell",
+      "command": "./gradlew installDebug",
+      "group": "none",
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "ADB: Start Default Emulator",
+      "type": "shell",
+      "command": "bash -lc 'emulator -list-avds | head -n1 | xargs -I % emulator -avd % &> /dev/null & sleep 5'",
+      "problemMatcher": [],
+      "group": "none",
+      "presentation": { "reveal": "silent" }
+    }
+  ]
+}

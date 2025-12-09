@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Platinum Arabic AI</string>
+    <string name="app_description">أول نظام مساعد صوتي عربي يعمل 100% محلياً</string>
+    
+    <!-- General -->
+    <string name="ok">حسناً</string>
+    <string name="cancel">إلغاء</string>
+    <string name="save">حفظ</string>
+    <string name="delete">حذف</string>
+    <string name="edit">تعديل</string>
+    <string name="settings">الإعدادات</string>
+    <string name="help">مساعدة</string>
+    
+    <!-- Home Screen -->
+    <string name="home_title">مساعدك الشخصي الذكي</string>
+    <string name="listen_button">استمع</string>
+    <string name="speak_hint">قل شيئاً...</string>
+    
+    <!-- Personalities -->
+    <string name="select_personality">اختر شخصية</string>
+    <string name="personalities">الشخصيات</string>
+    <string name="personalities_description">اختر من بين 50+ شخصية فريدة</string>
+    
+    <!-- Permissions -->
+    <string name="permission_microphone">السماح بالوصول للميكروفون</string>
+    <string name="permission_microphone_message">نحتاج لإذن الميكروفون لنستمع إلى أوامرك</string>
+    <string name="permission_storage">السماح بالوصول للتخزين</string>
+    <string name="permission_storage_message">نحتاج لإذن التخزين لحفظ بيانات التطبيق</string>
+    
+    <!-- Privacy -->
+    <string name="privacy_title">خصوصيتك أولويتنا</string>
+    <string name="privacy_message">جميع البيانات محمية بتشفير AES-256 وتبقى على جهازك</string>
+    
+</resources>

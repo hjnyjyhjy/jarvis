@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Android App",
+      "type": "android",
+      "request": "attach",
+      "projectRoot": "${workspaceFolder}/app",
+      "adbPort": 5037
+    },
+    {
+      "name": "Start and Attach (Install Debug)",
+      "type": "android",
+      "request": "launch",
+      "projectRoot": "${workspaceFolder}/app",
+      "adbPort": 5037,
+      "preLaunchTask": "Gradle: Install Debug on Device/Emulator"
+    }
+  ]
+}

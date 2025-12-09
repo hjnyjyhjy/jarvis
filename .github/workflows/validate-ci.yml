@@ -1,0 +1,47 @@
+name: Validate workspace files
+
+on:
+  push:
+    paths:
+      - '.vscode/**'
+      - 'README_WORKSPACE.md'
+      - 'docs/**'
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - '.vscode/**'
+      - 'README_WORKSPACE.md'
+      - 'docs/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python (for JSON validation)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Validate JSON files
+        run: |
+          for f in .vscode/*.json; do
+            echo "Validating $f";
+            python -m json.tool "$f" > /dev/null;
+          done
+
+      - name: Show README_WORKSPACE
+        run: |
+          echo "--- README_WORKSPACE.md preview ---";
+          sed -n '1,120p' README_WORKSPACE.md || true
+
+      - name: Check for gradle wrapper (non-fatal)
+        run: |
+          if [ -x ./gradlew ]; then
+            echo "Found gradlew";
+            ./gradlew --version || true;
+          else
+            echo "No gradlew in repository (this repo relies on system Gradle or wrapper generation).";
+          fi
