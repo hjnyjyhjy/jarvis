@@ -1,7 +1,7 @@
 package com.platinumassistant.domain.entities
 
 /**
- * Entity representing an AI Personality
+ * Entity representing an AI Personality with full configuration
  */
 data class Personality(
     val id: String,
@@ -16,13 +16,23 @@ data class Personality(
     val isFavorite: Boolean = false,
     val usageCount: Int = 0,
     val lastUsed: Long = 0L,
-)
+    val language: String = "ar",
+    val keywords: List<String> = emptyList(),
+    val imageUrl: String? = null,
+    val systemPrompt: String = "You are a helpful assistant",
+    val temperature: Float = 0.7f,
+    val maxTokens: Int = 512,
+    val enableMemory: Boolean = true,
+    val memoryCap: Int = 100
+) {
+    fun canUse(): Boolean = isAvailable && !id.isEmpty()
+}
 
 enum class PersonalityCategory {
-    TECHNICAL,
-    COMEDY,
-    HEROES,
-    ARABIC,
-    HISTORICAL,
-    CUSTOM
+    TECHNICAL,          // Software engineers, hackers (Jarvis, Friday, Elon, etc.)
+    COMEDY,            // Deadpool, Joker, SpongeBob, etc.
+    HEROES,            // Batman, Superman, Wonder Woman, etc.
+    ARABIC,            // Arab philosophers, poets, scholars
+    HISTORICAL,        // Einstein, Newton, Tesla, etc.
+    CUSTOM             // User-created personalities
 }

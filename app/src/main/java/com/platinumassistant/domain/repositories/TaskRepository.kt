@@ -1,10 +1,11 @@
 package com.platinumassistant.domain.repositories
 
 import com.platinumassistant.domain.entities.Task
+import com.platinumassistant.domain.entities.TaskPriority
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Repository interface for task/todo data access
+ * Repository interface for task/todo data access and persistence
  */
 interface TaskRepository {
     
@@ -12,9 +13,13 @@ interface TaskRepository {
     
     fun getTasksByCategory(category: String): Flow<List<Task>>
     
+    fun getTasksByPriority(priority: TaskPriority): Flow<List<Task>>
+    
     fun getPendingTasks(): Flow<List<Task>>
     
     fun getCompletedTasks(): Flow<List<Task>>
+    
+    fun getOverdueTasks(): Flow<List<Task>>
     
     suspend fun addTask(task: Task)
     
@@ -24,5 +29,9 @@ interface TaskRepository {
     
     suspend fun completeTask(id: String)
     
+    suspend fun clearCompletedTasks()
+    
     suspend fun getTaskById(id: String): Task?
+    
+    suspend fun searchTasks(query: String): List<Task>
 }

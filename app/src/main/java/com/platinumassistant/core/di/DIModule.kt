@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
+import com.platinumassistant.core.security.EncryptionManager
 import com.platinumassistant.data.local.PlatinumDatabase
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,7 @@ private const val DATABASE_NAME = "platinum_database"
 
 /**
  * Dependency Injection module for providing singleton instances
+ * Manages all global dependencies with Hilt/Dagger
  */
 @Module
 @InstallIn(SingletonComponent::class)
@@ -43,5 +45,13 @@ object DIModule {
         )
             .fallbackToDestructiveMigration()
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEncryptionManager(
+        @ApplicationContext context: Context
+    ): EncryptionManager {
+        return EncryptionManager(context)
     }
 }
