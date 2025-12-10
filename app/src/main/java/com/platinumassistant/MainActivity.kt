@@ -63,11 +63,6 @@ class MainActivity : ComponentActivity() {
  */
 @Composable
 fun MainContent() {
-    ChatScreen(
-        messages = emptyList(),
-        onSendMessage = { message ->
-            // TODO: Handle message sending
-        },
-        currentPersonality = "Jarvis"
-    )
+    // ChatScreen now uses a Hilt-provided ViewModel; call without parameters
+    ChatScreen()
 }
