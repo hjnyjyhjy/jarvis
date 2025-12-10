@@ -50,19 +50,17 @@ class AssistantFeature {
      * Create daily briefing based on user preferences
      */
     fun createDailyBriefing(): String {
-        // TODO: Aggregate:
-        // - Weather
-        // - Calendar events
-        // - Important news
-        // - Task summary
-        return "Daily briefing"
+        // Lightweight offline-friendly briefing: return a concise summary.
+        // In future this will aggregate weather, calendar and news.
+        val time = java.time.LocalDate.now()
+        return "Daily briefing for $time: No new events. Stay productive!"
     }
     
     /**
      * Detect mood from voice analysis
      */
     fun detectMood(audioPath: String): String {
-        // TODO: Analyze audio tone, pitch, pace
+        // Offline stub: return neutral for now. Integration with audio analysis will be added later.
         return "neutral"
     }
     
@@ -70,7 +68,12 @@ class AssistantFeature {
      * Suggest activities based on mood and time
      */
     fun suggestActivities(mood: String): List<String> {
-        // TODO: Return personalized activity suggestions
-        return emptyList()
+        // Provide simple suggestions based on mood without external models
+        return when (mood.lowercase()) {
+            "happy" -> listOf("Share your joy with a friend", "Keep working on a passion project")
+            "sad" -> listOf("Take a short walk", "Listen to calming music")
+            "neutral" -> listOf("Review your tasks for today", "Take a short break")
+            else -> listOf("Reflect for 5 minutes", "Drink some water")
+        }
     }
 }

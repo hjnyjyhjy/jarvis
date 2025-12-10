@@ -51,24 +51,43 @@ class ProgrammerFeature {
      * Supports: Python, JavaScript, TypeScript, Java, C++, C#, PHP, Ruby, Go, Rust, Swift, Kotlin, Dart, SQL, HTML/CSS, Bash, PowerShell, R, MATLAB, Julia, Scala, etc.
      */
     fun generateCode(language: String, description: String): String {
-        // TODO: Use LLM to generate code
-        return "// Generated code for: $description"
+        // Lightweight generator: create a small commented template so user has a starting point.
+        val header = "// Language: $language\n// Description: $description\n\n"
+        val body = when (language.lowercase()) {
+            "python" -> "def main():\n    # TODO: Implement logic for: $description\n    pass\n\nif __name__ == \"__main__\":\n    main()\n"
+            "kotlin" -> "fun main() {\n    // TODO: Implement: $description\n}\n"
+            "java" -> "public class Generated {\n    public static void main(String[] args) {\n        // $description\n    }\n}\n"
+            else -> "// Generated code for: $description\n"
+        }
+        return header + body
     }
     
     /**
      * Explain code snippet
      */
     fun explainCode(code: String): String {
-        // TODO: Analyze and explain code
-        return "Code explanation"
+        // Basic heuristic explanation: return first line / summary
+        val lines = code.lines().filter { it.isNotBlank() }
+        return if (lines.isNotEmpty()) {
+            "Explanation (summary): ${lines.first().take(120)}"
+        } else {
+            "No code provided"
+        }
     }
     
     /**
      * Detect bugs and suggest fixes
      */
     fun detectBugs(code: String): List<String> {
-        // TODO: Analyze for bugs
-        return emptyList()
+        // Very lightweight static checks
+        val issues = mutableListOf<String>()
+        if (code.contains("TODO") || code.contains("FIXME")) {
+            issues.add("Code contains TODO/FIXME markers")
+        }
+        if (code.contains("== null") || code.contains("NullPointerException")) {
+            issues.add("Possible null-safety issue")
+        }
+        return issues
     }
     
     /**
