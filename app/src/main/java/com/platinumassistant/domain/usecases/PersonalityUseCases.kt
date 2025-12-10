@@ -11,8 +11,7 @@ import javax.inject.Inject
  * Container class for all personality-related use cases
  * Simplifies injection and grouping of related use cases
  */
-@Inject
-class PersonalityUseCases(
+class PersonalityUseCases @Inject constructor(
     val getAllPersonalities: GetAllPersonalitiesUseCase,
     val getByCategory: GetPersonalitiesByCategoryUseCase,
     val getFavorites: GetFavoritePersonalitiesUseCase,
