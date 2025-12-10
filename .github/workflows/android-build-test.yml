@@ -25,9 +25,13 @@ jobs:
         run: chmod +x ./gradlew
       
       - name: Build Debug APK
+        env:
+          _JAVA_OPTIONS: "-Xmx2048m -XX:+UseG1GC"
         run: ./gradlew assembleDebug --no-daemon
       
       - name: Run Unit Tests
+        env:
+          _JAVA_OPTIONS: "-Xmx2048m -XX:+UseG1GC"
         run: ./gradlew testDebugUnitTest --no-daemon
       
       - name: Upload APK artifact
