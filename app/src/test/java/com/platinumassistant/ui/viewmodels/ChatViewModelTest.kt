@@ -57,13 +57,27 @@ class FakeMessageRepository : MessageRepository {
 }
 
 class FakePersonalityRepository : PersonalityRepository {
-    private val default = Personality(id = "default", name = "Assistant", language = "en")
-    override suspend fun getAllPersonalities(): List<Personality> = listOf(default)
-    override suspend fun getPersonalityById(id: String): Personality? = if (id == "default") default else null
-    override suspend fun savePersonality(personality: Personality) {}
-    override suspend fun deletePersonality(id: String): Boolean = false
-    override suspend fun getSelectedPersonality(): Personality? = default
+    private val default = Personality(
+        id = "default", 
+        name = "Assistant", 
+        description = "Test personality",
+        category = com.platinumassistant.domain.entities.PersonalityCategory.CUSTOM,
+        voiceId = "default-voice"
+    )
+    
+    override fun getAllPersonalities(): Flow<List<Personality>> = flow { emit(listOf(default)) }
+    override fun getPersonalityById(id: String): Flow<Personality?> = flow { emit(if (id == "default") default else null) }
+    override fun getPersonalitiesByCategory(category: String): Flow<List<Personality>> = flow { emit(listOf(default)) }
+    override fun getFavoritePersonalities(): Flow<List<Personality>> = flow { emit(emptyList()) }
+    override suspend fun addPersonality(personality: Personality) {}
+    override suspend fun updatePersonality(personality: Personality) {}
+    override suspend fun deletePersonality(id: String) {}
+    override suspend fun toggleFavorite(id: String): Boolean = false
     override suspend fun selectPersonality(id: String): Boolean = id == "default"
+    override suspend fun getSelectedPersonality(): Personality? = default
+    override suspend fun updateUsageStatistics(id: String) {}
+    override suspend fun searchPersonalities(query: String): List<Personality> = listOf(default)
+    override fun getTrendingPersonalities(limit: Int): Flow<List<Personality>> = flow { emit(listOf(default)) }
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
