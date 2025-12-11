@@ -143,7 +143,7 @@ fun MessageItem(
         ) {
             // Sender name
             Text(
-                text = message.sender,
+                text = message.sender.name,
                 style = MaterialTheme.typography.labelSmall,
                 color = textColor.copy(alpha = 0.7f),
                 modifier = Modifier.padding(bottom = 4.dp)
