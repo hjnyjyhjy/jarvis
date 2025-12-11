@@ -10,8 +10,7 @@ import javax.inject.Inject
  * Container class for all message-related use cases
  * Simplifies injection and grouping of related use cases
  */
-@Inject
-class MessageUseCases(
+class MessageUseCases @Inject constructor(
     val sendMessage: SendMessageUseCase,
     val getHistory: GetMessageHistoryUseCase,
     val getRecent: GetRecentMessagesUseCase,
