@@ -1,7 +1,6 @@
 package com.platinumassistant.domain.repositories
 
 import com.platinumassistant.domain.entities.Personality
-import com.platinumassistant.domain.entities.PersonalityCategory
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -12,8 +11,9 @@ interface PersonalityRepository {
     fun getAllPersonalities(): Flow<List<Personality>>
     
     fun getPersonalityById(id: String): Flow<Personality?>
-    
-    fun getPersonalitiesByCategory(category: PersonalityCategory): Flow<List<Personality>>
+
+    // Category is stored as a string in the DAO; use string names here for compatibility
+    fun getPersonalitiesByCategory(category: String): Flow<List<Personality>>
     
     fun getFavoritePersonalities(): Flow<List<Personality>>
     
@@ -24,10 +24,14 @@ interface PersonalityRepository {
     suspend fun updatePersonality(personality: Personality)
     
     suspend fun deletePersonality(id: String)
-    
-    suspend fun toggleFavorite(id: String, isFavorite: Boolean)
-    
+
+    suspend fun toggleFavorite(id: String): Boolean
+
+    suspend fun selectPersonality(id: String): Boolean
+
+    suspend fun getSelectedPersonality(): Personality?
+
     suspend fun updateUsageStatistics(id: String)
-    
+
     suspend fun searchPersonalities(query: String): List<Personality>
 }

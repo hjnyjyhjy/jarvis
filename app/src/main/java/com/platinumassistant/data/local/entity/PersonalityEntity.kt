@@ -39,33 +39,43 @@ data class PersonalityEntity(
 ) {
     
     fun toDomainModel(): Personality {
+        // Map storage representation into domain model, providing safe defaults
+        val categoryEnum = try {
+            PersonalityCategory.valueOf(category)
+        } catch (e: Exception) {
+            PersonalityCategory.CUSTOM
+        }
+
+        val keywordsList = tags.split(",").map { it.trim() }.filter { it.isNotBlank() }
+
+        val characteristicsList = try {
+            // traits may be a JSON or comma-separated string; attempt simple split
+            traits.split(",").map { it.trim() }.filter { it.isNotBlank() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+
         return Personality(
             id = id,
             name = name,
             description = description,
-            category = category,
-            avatar = avatar,
+            category = categoryEnum,
             voiceId = voiceId,
-            voiceSpeed = voiceSpeed,
-            voicePitch = voicePitch,
+            speed = voiceSpeed,
+            pitch = voicePitch,
+            characteristics = characteristicsList,
+            isAvailable = availability == "always" || availability == "available",
+            isFavorite = isFavorite,
+            usageCount = usageCount,
+            lastUsed = lastUsed ?: 0L,
             language = language,
+            keywords = keywordsList,
+            imageUrl = if (avatar.isBlank()) null else avatar,
             systemPrompt = systemPrompt,
             temperature = temperature,
-            maxTokens = maxTokens,
-            topK = topK,
-            topP = topP,
-            memorySize = memorySize,
-            memoryStrategy = memoryStrategy,
-            isFavorite = isFavorite,
-            isSelected = isSelected,
-            usageCount = usageCount,
-            lastUsed = lastUsed,
-            createdAt = createdAt,
-            updatedAt = updatedAt,
-            tags = tags.split(",").filter { it.isNotBlank() },
-            traits = traits,
-            availability = availability,
-            metadata = metadata
+            maxTokens = maxTokens.coerceAtMost(4096),
+            enableMemory = memorySize > 0,
+            memoryCap = memorySize
         )
     }
     
@@ -75,29 +85,29 @@ data class PersonalityEntity(
                 id = personality.id,
                 name = personality.name,
                 description = personality.description,
-                category = personality.category,
-                avatar = personality.avatar,
+                category = personality.category.name,
+                avatar = personality.imageUrl ?: "",
                 voiceId = personality.voiceId,
-                voiceSpeed = personality.voiceSpeed,
-                voicePitch = personality.voicePitch,
+                voiceSpeed = personality.speed,
+                voicePitch = personality.pitch,
                 language = personality.language,
                 systemPrompt = personality.systemPrompt,
                 temperature = personality.temperature,
                 maxTokens = personality.maxTokens,
-                topK = personality.topK,
-                topP = personality.topP,
-                memorySize = personality.memorySize,
-                memoryStrategy = personality.memoryStrategy,
+                topK = 40,
+                topP = 0.9f,
+                memorySize = if (personality.enableMemory) personality.memoryCap else 0,
+                memoryStrategy = "sliding_window",
                 isFavorite = personality.isFavorite,
-                isSelected = personality.isSelected,
+                isSelected = false,
                 usageCount = personality.usageCount,
                 lastUsed = personality.lastUsed,
                 createdAt = personality.createdAt,
-                updatedAt = personality.updatedAt,
-                tags = personality.tags.joinToString(","),
-                traits = personality.traits,
-                availability = personality.availability,
-                metadata = personality.metadata
+                updatedAt = System.currentTimeMillis(),
+                tags = personality.keywords.joinToString(","),
+                traits = personality.characteristics.joinToString(","),
+                availability = if (personality.isAvailable) "available" else "unavailable",
+                metadata = ""
             )
         }
     }

@@ -6,6 +6,7 @@ import com.platinumassistant.domain.entities.Personality
 import com.platinumassistant.domain.repositories.PersonalityRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 /**
@@ -22,8 +23,9 @@ class PersonalityRepositoryImpl @Inject constructor(
         }
     
     override fun getPersonalityById(id: String): Flow<Personality?> =
-        personalityDao.getPersonalitiesByCategory("").map { _ ->
-            personalityDao.getPersonalityById(id)?.toDomainModel()
+        flow {
+            val entity = personalityDao.getPersonalityById(id)
+            emit(entity?.toDomainModel())
         }
     
     override fun getPersonalitiesByCategory(category: String): Flow<List<Personality>> =
@@ -95,7 +97,7 @@ class PersonalityRepositoryImpl @Inject constructor(
         false
     }
     
-    override fun getPersonalitiesByLanguage(language: String): Flow<List<Personality>> =
+    fun getPersonalitiesByLanguage(language: String): Flow<List<Personality>> =
         personalityDao.getPersonalitiesByLanguage(language).map { entities ->
             entities.map { it.toDomainModel() }
         }

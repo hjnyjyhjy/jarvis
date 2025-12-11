@@ -34,8 +34,12 @@ data class TaskEntity(
             title = title,
             description = description,
             category = category,
-            priority = priority,
-            dueDate = dueDate,
+            priority = try {
+                TaskPriority.valueOf(priority)
+            } catch (e: Exception) {
+                TaskPriority.MEDIUM
+            },
+            dueDate = if (dueDate <= 0L) null else dueDate,
             isCompleted = isCompleted,
             completedAt = completedAt,
             createdAt = createdAt,
@@ -44,7 +48,7 @@ data class TaskEntity(
             subtasks = subtasks.split("||").filter { it.isNotBlank() },
             tags = tags.split(",").filter { it.isNotBlank() },
             attachments = attachments.split("||").filter { it.isNotBlank() },
-            assignedPersonality = assignedPersonality,
+            assignee = assignedPersonality,
             metadata = metadata
         )
     }
@@ -56,18 +60,18 @@ data class TaskEntity(
                 title = task.title,
                 description = task.description,
                 category = task.category,
-                priority = task.priority,
-                dueDate = task.dueDate,
+                priority = task.priority.name,
+                dueDate = task.dueDate ?: 0L,
                 isCompleted = task.isCompleted,
                 completedAt = task.completedAt,
                 createdAt = task.createdAt,
-                updatedAt = task.updatedAt,
+                updatedAt = task.createdAt,
                 reminders = task.reminders.joinToString(","),
                 subtasks = task.subtasks.joinToString("||"),
                 tags = task.tags.joinToString(","),
                 attachments = task.attachments.joinToString("||"),
-                assignedPersonality = task.assignedPersonality,
-                metadata = task.metadata
+                assignedPersonality = task.assignee,
+                metadata = task.progress.toString()
             )
         }
     }
