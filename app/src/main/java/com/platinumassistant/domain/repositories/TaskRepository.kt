@@ -1,7 +1,6 @@
 package com.platinumassistant.domain.repositories
 
 import com.platinumassistant.domain.entities.Task
-import com.platinumassistant.domain.entities.TaskPriority
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -13,7 +12,7 @@ interface TaskRepository {
     
     fun getTasksByCategory(category: String): Flow<List<Task>>
     
-    fun getTasksByPriority(priority: TaskPriority): Flow<List<Task>>
+    fun getTasksByPriority(priority: String): Flow<List<Task>>
     
     fun getPendingTasks(): Flow<List<Task>>
     

@@ -34,7 +34,7 @@ class GetPendingTasksUseCase @Inject constructor(
 class GetTasksByPriorityUseCase @Inject constructor(
     private val taskRepository: TaskRepository
 ) {
-    operator fun invoke(priority: TaskPriority): Flow<List<Task>> {
+    operator fun invoke(priority: String): Flow<List<Task>> {
         return taskRepository.getTasksByPriority(priority)
     }
 }
