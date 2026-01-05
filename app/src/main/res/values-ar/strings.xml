@@ -3,4 +3,6 @@
     <string name="creator_name_ar">The quantum -Codex , عمر عطا</string>
     <string name="permission_microphone">السماح بالوصول للميكروفون</string>
     <string name="permission_microphone_message">نحتاج لإذن الميكروفون لنستمع إلى أوامرك</string>
+    <string name="permission_required_title">مطلوب إذن الميكروفون</string>
+    <string name="open_settings">افتح الإعدادات</string>
 </resources>

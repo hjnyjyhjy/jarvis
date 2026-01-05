@@ -16,6 +16,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import android.content.pm.PackageManager
 import android.content.Context
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,6 +52,18 @@ fun MainScreen(vm: MainViewModel) {
     val state by vm.uiState.collectAsState()
     val ctx = LocalContext.current
     var showSettings by remember { mutableStateOf(false) }
+    var showPermissionDialog by remember { mutableStateOf(false) }
+
+    // Permission launcher for RECORD_AUDIO
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            vm.onMicPressed(ctx)
+        } else {
+            showPermissionDialog = true
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -73,8 +89,13 @@ fun MainScreen(vm: MainViewModel) {
             onDispose { tts.shutdown() }
         }
 
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = { vm.onMicPressed(ctx) }) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Button(onClick = {
+                // Check runtime permission first
+                val granted = ContextCompat.checkSelfPermission(ctx, android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+                if (granted) vm.onMicPressed(ctx)
+                else permissionLauncher.launch(android.Manifest.permission.RECORD_AUDIO)
+            }) {
                 Text(if (state.isListening) "Stop" else "Speak")
             }
             Spacer(modifier = Modifier.width(8.dp))
@@ -84,6 +105,25 @@ fun MainScreen(vm: MainViewModel) {
             }) {
                 Text("Speak")
             }
+        }
+        if (showPermissionDialog) {
+            AlertDialog(
+                onDismissRequest = { showPermissionDialog = false },
+                title = { Text(text = ctx.getString(com.platinumassistant.R.string.permission_microphone)) },
+                text = { Text(text = ctx.getString(com.platinumassistant.R.string.permission_microphone_message)) },
+                confirmButton = {
+                    TextButton(onClick = {
+                        // Open app settings
+                        val uri = android.net.Uri.fromParts("package", ctx.packageName, null)
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+                        ctx.startActivity(intent)
+                        showPermissionDialog = false
+                    }) { Text(ctx.getString(com.platinumassistant.R.string.settings)) }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showPermissionDialog = false }) { Text(ctx.getString(com.platinumassistant.R.string.cancel)) }
+                }
+            )
         }
     }
 }

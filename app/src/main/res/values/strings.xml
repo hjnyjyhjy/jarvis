@@ -44,6 +44,8 @@
     <!-- Permissions -->
     <string name="permission_microphone">السماح بالوصول للميكروفون</string>
     <string name="permission_microphone_message">نحتاج لإذن الميكروفون لنستمع إلى أوامرك</string>
+    <string name="permission_required_title">Microphone permission required</string>
+    <string name="open_settings">Open Settings</string>
     <string name="permission_storage">السماح بالوصول للتخزين</string>
     <string name="permission_storage_message">نحتاج لإذن التخزين لحفظ بيانات التطبيق</string>
     
