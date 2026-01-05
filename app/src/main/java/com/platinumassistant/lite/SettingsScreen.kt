@@ -28,6 +28,14 @@ fun SettingsDialog(ctx: Context, show: Boolean, onDismiss: () -> Unit) {
                 RowSetting("Text-only fallback", textOnly) { v -> textOnly = v; FlagsStore.setFlag(ctx, "text_only", v) }
 
                 Button(onClick = onDismiss, modifier = Modifier.padding(top = 8.dp)) { Text("Close") }
+
+                // Developer credit / name (light and non-intrusive)
+                val creator = ctx.getString(com.platinumassistant.R.string.creator_name)
+                Text(
+                    text = "$creator",
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(top = 12.dp)
+                )
             }
         }
     }

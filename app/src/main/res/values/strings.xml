@@ -52,7 +52,7 @@
     <string name="privacy_message">جميع البيانات محمية بتشفير AES-256 وتبقى على جهازك</string>
     
     <!-- Creator / Manufacturer -->
-    <string name="creator_name">The Quantum Codex-Blade, عمر عطا</string>
+    <string name="creator_name">The quantum -Codex blade , عمر عطا</string>
     <string name="creator_label">الصانع</string>
     <string name="about_creator">صُنع بواسطة %1$s — مساعد صوتي يعمل محلياً وبدون إنترنت بعد تنزيل النماذج المطلوبة.</string>
 
