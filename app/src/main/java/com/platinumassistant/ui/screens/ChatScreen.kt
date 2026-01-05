@@ -48,6 +48,7 @@ import com.platinumassistant.ui.viewmodels.ChatViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(
+    onNavigateToSettings: () -> Unit = {},
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     val chatState = viewModel.chatState.collectAsState()
@@ -66,8 +67,16 @@ fun ChatScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { 
+                title = {
                     Text("${chatState.value.selectedPersonality?.name ?: "Platinum AI"}")
+                },
+                actions = {
+                    IconButton(onClick = onNavigateToSettings) {
+                        Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.Settings,
+                            contentDescription = "${androidx.compose.ui.res.stringResource(id = com.platinumassistant.R.string.settings)}"
+                        )
+                    }
                 }
             )
         },

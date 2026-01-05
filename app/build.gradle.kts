@@ -125,6 +125,11 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
+    // WorkManager for background downloads/tasks
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    // Vosk for offline STT and keyword spotting (open-source)
+    implementation("org.vosk:vosk-android:0.3.64")
+
     // Logging
     implementation("com.jakewharton.timber:timber:5.0.1")
 }

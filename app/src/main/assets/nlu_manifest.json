@@ -1,0 +1,12 @@
+{
+  "nlu": {
+    "en": [
+      {"intent": "greet", "examples": ["hello", "hi", "hey"], "response":"Hello! How can I help?"},
+      {"intent": "time", "examples": ["what time is it", "tell me the time"], "response":"It's %TIME%"}
+    ],
+    "ar": [
+      {"intent": "greet", "examples": ["مرحبا", "أهلاً", "هاي"], "response":"أهلاً! كيف أستطيع المساعدة؟"},
+      {"intent": "time", "examples": ["ما الوقت", "كم الساعة"], "response":"الساعة الآن %TIME%"}
+    ]
+  }
+}

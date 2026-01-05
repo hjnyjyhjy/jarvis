@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App name -->
+    <string name="app_name">Jarvis Ultra Lite</string>
+
+    <!-- UI -->
+    <string name="push_to_talk">Push to Talk</string>
+    <string name="ready">Ready</string>
+    <string name="speak_now">Speak now</string>
+
+    <!-- Responses -->
+    <string name="not_understood">I didn't catch that</string>
+    <string name="saved">Saved: %1$s</string>
+
+    <!-- Arabic (short) -->
+    <string name="app_name_ar">جارفيس لايت</string>
+    <string name="push_to_talk_ar">اضغط للتحدث</string>
+    <string name="ready_ar">جاهز</string>
+</resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <string name="app_name">Platinum Arabic AI</string>
     <string name="app_description">أول نظام مساعد صوتي عربي يعمل 100% محلياً</string>
     
@@ -31,5 +50,14 @@
     <!-- Privacy -->
     <string name="privacy_title">خصوصيتك أولويتنا</string>
     <string name="privacy_message">جميع البيانات محمية بتشفير AES-256 وتبقى على جهازك</string>
+    
+    <!-- Creator / Manufacturer -->
+    <string name="creator_name">The Quantum Codex-Blade, عمر عطا</string>
+    <string name="creator_label">الصانع</string>
+    <string name="about_creator">صُنع بواسطة %1$s — مساعد صوتي يعمل محلياً وبدون إنترنت بعد تنزيل النماذج المطلوبة.</string>
+
+    <!-- Offline mode description -->
+    <string name="offline_mode_title">الوضع دون اتصال</string>
+    <string name="offline_mode_message">يمكن للتطبيق العمل بدون إنترنت بعد تنزيل الحزم والنماذج المطلوبة. راجع الإعدادات لتحميل الحزم.</string>
     
 </resources>
