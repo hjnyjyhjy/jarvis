@@ -53,6 +53,7 @@
     
     <!-- Creator / Manufacturer -->
     <string name="creator_name">The quantum -Codex , Omar atta</string>
+        <string name="creator_name_en">The quantum -Codex , Omar atta</string>
     <string name="creator_label">الصانع</string>
     <string name="about_creator">صُنع بواسطة %1$s — مساعد صوتي يعمل محلياً وبدون إنترنت بعد تنزيل النماذج المطلوبة.</string>
 

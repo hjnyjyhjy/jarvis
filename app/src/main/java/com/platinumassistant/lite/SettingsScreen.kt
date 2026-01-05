@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -29,13 +32,32 @@ fun SettingsDialog(ctx: Context, show: Boolean, onDismiss: () -> Unit) {
 
                 Button(onClick = onDismiss, modifier = Modifier.padding(top = 8.dp)) { Text("Close") }
 
-                // Developer credit / name (light and non-intrusive)
-                val creator = ctx.getString(com.platinumassistant.R.string.creator_name)
+                // Developer credits (both English and Arabic lines)
+                val creatorEn = ctx.getString(com.platinumassistant.R.string.creator_name_en)
+                val creatorAr = ctx.getString(com.platinumassistant.R.string.creator_name_ar)
                 Text(
-                    text = "$creator",
+                    text = creatorEn,
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(top = 12.dp)
                 )
+                Text(
+                    text = creatorAr,
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+
+                // Microphone permission helper
+                Divider(modifier = Modifier.padding(vertical = 8.dp))
+                Text(ctx.getString(com.platinumassistant.R.string.permission_microphone_message), style = MaterialTheme.typography.bodySmall)
+                Button(onClick = {
+                    // Open app settings so user can grant microphone permission
+                    val uri: Uri = Uri.fromParts("package", ctx.packageName, null)
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    ctx.startActivity(intent)
+                }, modifier = Modifier.padding(top = 8.dp)) {
+                    Text(ctx.getString(com.platinumassistant.R.string.permission_microphone))
+                }
             }
         }
     }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="creator_name_ar">The quantum -Codex , عمر عطا</string>
+    <string name="permission_microphone">السماح بالوصول للميكروفون</string>
+    <string name="permission_microphone_message">نحتاج لإذن الميكروفون لنستمع إلى أوامرك</string>
+</resources>
